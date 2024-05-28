@@ -1,0 +1,79 @@
+/********************
+* popup
+********************/
+/*popup common*/
+.popup_wrap{position:fixed;width:100%;height:100%;background:url(../css/images/bg_popup.png) repeat;}
+.popup_area{position:relative;width:100%;height:100%;}
+.popup{position:absolute;top:50%;left:50%;background:#FFF;box-shadow:10px 10px 25px rgba(0,0,0,0.35);}
+.popup .header{position:relative;height:55px;padding:0;background:#009ddc;}
+.popup .header .tit{padding:15px 25px 0 24px;color:#FFF;font-size:18px;font-weight:bold;letter-spacing:-2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.popup .header .btn_close{float:right;display:block;width:13px;height:12px;padding:5px;margin:18px 20px 0 20px;background:url(../css/images/btn_close_popup.gif) 5px 5px no-repeat;font-size:0;text-indent:-9999px;}
+.popup .notice{color:#000;font-size:15px;letter-spacing:-1.5px;line-height:23px;text-align:center;}
+.popup .btn_area{font-size:0;text-align:center;white-space:nowrap;}
+.popup .btn_area .btn{display:inline-block;min-width:74px;height:33px;padding:0 5px;margin:0 3px;border-radius:3px;background:#ededed;color:#000;font-size:13px;letter-spacing:-1px;line-height:32px;text-align:center;}
+.popup .btn_area .btn.blue{background:#009ddc;color:#FFF;}
+
+/*nomore 메일더보기*/
+.popup.nomore{width:264px;height:125px;margin:-65px 0 0 -132px;}
+.popup.nomore .notice{padding:25px 0 17px 0;}
+
+/*chk_withdraw 메일전체회수확인*/
+.popup.chk_withdraw{width:450px;height:160px;margin:-75px 0 0 -225px;}
+.popup.chk_withdraw .notice{padding:25px 0 15px 0;}
+
+/*cause_withdraw 메일전체회수사유*/
+.popup.cause_withdraw{width:347px;height:201px;margin:-105px 0 0 -174px;}
+.popup.cause_withdraw .text_area{padding:25px 25px 17px 25px;font-size:0;}
+.popup.cause_withdraw .text_area textarea{width:297px;height:109px;padding:7px 10px;border:1px solid #e9e9e9;background:#f5f5f5;resize:none;color:#494949;font-size:14px;font-family:'Malgun Gothic',Dotum;line-height:20px;box-sizing:border-box;-webkit-box-sizing:border-box;}
+
+/*reserve_room 회의실예약*/
+.popup.reserve_room{top:220px;width:591px;margin:0 0 0 -245px;}
+.popup.reserve_room .container{padding:21px 22px 0 22px;}
+.popup.reserve_room .container .user{padding:0 0 12px 0;font-size:0;word-break:break-all;}
+.popup.reserve_room .container .user .name{color:#000;font-size:14px;letter-spacing:-1px;}
+.popup.reserve_room .container .user .email{margin:0 0 0 10px;color:#000;font-size:14px;}
+.popup.reserve_room .container .set_area{padding:0 3px;}
+.popup.reserve_room .container .set_area .row{padding:0 0 10px 0;}
+.popup.reserve_room .container .set_area .row.input_tit{}
+.popup.reserve_room .container .set_area .row.choice_room{}
+.popup.reserve_room .container .set_area .row.choice_time{}
+.popup.reserve_room .container .set_area .ipt_txt{width:100%;height:36px;padding:0 5px;border:1px solid #dadada;border-radius:2px;background:#f5f5f5;color:#000;font-size:14px;line-height:36px;box-sizing:border-box;-webkit-box-sizing:border-box;}
+.popup.reserve_room .container .set_area .set_place{position:relative;z-index:1;*zoom:1;}
+.popup.reserve_room .container .set_area .set_place:after{display:block;content:'';clear:both;}
+.popup.reserve_room .container .set_area .set_place .bar{float:left;display:block;width:8px;height:14px;margin:12px 3px 0 5px;background:url(../css/images/arr_set_place.gif) 0 0 no-repeat;}
+.popup.reserve_room .container .set_area .set_place .building{float:left;}
+.popup.reserve_room .container .set_area .set_place .building .custom_select{width:128px;}
+.popup.reserve_room .container .set_area .set_place .floor{float:left;}
+.popup.reserve_room .container .set_area .set_place .floor .custom_select{width:128px;}
+.popup.reserve_room .container .set_area .set_place .room{float:left;}
+.popup.reserve_room .container .set_area .set_place .room .custom_select{width:252px;}
+.popup.reserve_room .container .set_area .set_place  .custom_select .layer_opt .btn_area{padding:0 0 15px 0;}
+.popup.reserve_room .container .set_area .set_place  .custom_select .layer_opt .btn_area .btn{min-width:inherit;}
+.popup.reserve_room .container .set_area .set_time{*zoom:1;}
+.popup.reserve_room .container .set_area .set_time:after{display:block;content:'';clear:both;}
+.popup.reserve_room .container .set_area .set_time .bar{float:left;display:block;width:6px;height:1px;margin:18px 5px 0 5px;background:#838383;font-size:0;text-indent:-9999px;}
+.popup.reserve_room .container .set_area .set_time .time{float:left;}
+.popup.reserve_room .container .set_area .set_time .time .ipt_date{float:left;width:88px;height:36px;padding:0 7px;margin:0 5px 0 0;border:none;border-radius:3px;background:#f5f5f5;color:#000;font-size:14px;box-sizing:border-box;-webkit-box-sizing:border-box;}
+.popup.reserve_room .container .set_area .set_time .time .ipt_time{float:left;width:31px;height:36px;padding:0 7px;border:none;border-radius:3px;background:#f5f5f5;color:#000;font-size:14px;box-sizing:border-box;-webkit-box-sizing:border-box;}
+.popup.reserve_room .container .set_area .set_time .time .dot{float:left;margin:8px 4px 0 3px;color:#000;font-size:14px;}
+.popup.reserve_room .container .set_area .set_time .time .ipt_min{float:left;width:31px;height:36px;padding:0 7px;border:none;border-radius:3px;background:#f5f5f5;color:#000;font-size:14px;box-sizing:border-box;-webkit-box-sizing:border-box;}
+.popup.reserve_room .container .set_area .chk_all{padding:12px 0 0 0;overflow:hidden;}
+.popup.reserve_room .container .set_area .chk_all .chkbox{float:left;position:relative;margin:1px 4px 0 0;overflow:hidden;}
+.popup.reserve_room .container .set_area .chk_all .chkbox input[type="checkbox"]{display:none;}
+.popup.reserve_room .container .set_area .chk_all .chkbox input[type="checkbox"] + label{float:left;cursor:pointer;display:block;width:18px;height:18px;padding:0;background:url(../css/images/chkx18.png) 0 0 no-repeat;}
+.popup.reserve_room .container .set_area .chk_all .chkbox input[type="checkbox"]:checked + label{background:url(../css/images/chk_checkedx18.png) 0 0 no-repeat;}
+.popup.reserve_room .container .set_area .chk_all .chkbox input[type="checkbox"] + label span{position:absolute;top:0;left:0;font-size:0;text-indent:-9999px;}
+.popup.reserve_room .container .set_area .chk_all .txt{color:#000;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.popup.reserve_room .container .layer_password{position:relative;padding:15px 0;margin:10px 3px 2px 3px;border-top:1px solid #e4e4e4;background:#f5f5f5;*zoom:1;}
+.popup.reserve_room .container .layer_password:after{display:block;content:'';clear:both;}
+.popup.reserve_room .container .layer_password .lbl_pw{float:left;margin:8px 10px 0 13px;color:#000;font-size:14px;letter-spacing:-1px;}
+.popup.reserve_room .container .layer_password .ipt_pw{float:left;width:349px;height:36px;padding:0 5px;border:1px solid #dadada;border-radius:2px;background:#f5f5f5;color:#000;font-size:14px;line-height:36px;box-sizing:border-box;-webkit-box-sizing:border-box;}
+.popup.reserve_room .btn_area{padding:10px 23px 25px 23px;text-align:right;}
+.popup.reserve_room .btn_area .btn{min-width:54px;}
+
+/*room_position 회의실위치*/
+.popup.room_position{top:220px;width:414px;margin:0 0 0 -207px;}
+.popup.room_position .header .tit .floor{margin:0 0 0 5px;letter-spacing:0;}
+.popup.room_position .container{padding:25px;}
+.popup.room_position .container .img_wrap{border:1px solid #e9e9e9;}
+.popup.room_position .container .img_wrap img{width:100%;}

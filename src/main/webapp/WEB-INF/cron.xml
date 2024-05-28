@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+	<cron>
+		<url>/cronjob/endSchedule</url>
+		<description>notify end schedule every 10 minutes</description>
+		<schedule>every 10 minutes synchronized</schedule>
+		<retry-parameters>
+			<job-retry-limit>0</job-retry-limit>
+		</retry-parameters>
+	</cron>
+	<cron>
+		<url>/cronjob/dataStoreSchedule</url>
+		<description>notify end schedule every 3 minutes</description>
+		<schedule>every 3 minutes synchronized</schedule>
+		<retry-parameters>
+			<job-retry-limit>0</job-retry-limit>
+		</retry-parameters>
+	</cron>
+</cronentries>

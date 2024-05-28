@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="/WEB-INF/tld/customTagLibrary.tld" prefix="util" %>
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/popup.css?nocache=${util:getServerDate()}" />" />
+<script id="defaultPopup" type="text/x-jquery-tmpl">
+<div class="popup_wrap">
+	<div class="popup_area">
+		<!--nomore/s-->
+		<div class="popup nomore">
+			<p class="notice">{%= message %}</p>
+			<div class="btn_area">
+				<a href="javascript:void(0);" class="btn blue close">확인</a>
+			</div>
+		</div><!--nomore/e-->
+	</div>
+</div><!--popup/e-->
+</script>
+
+<script id="withdrawPopup" type="text/x-jquery-tmpl">
+<div class="popup_wrap">
+	<div class="popup_area">
+		<!--chk_withdraw/s-->
+		<div class="popup chk_withdraw">
+			<p class="notice">넷마블컴퍼니 외부로 발송된 메일은 삭제되지 않습니다.<br>메일회수가 완료되면 알림메일이 발송됩니다.</p>
+			<div class="btn_area">
+				<a href="javascript:void(0);" class="btn close">취소</a>
+				<a href="javascript:void(0);" class="btn blue ok">확인</a>
+			</div>
+		</div><!--chk_withdraw/e-->
+	</div>
+</div><!--popup/e-->
+</script>
+
+<script id="adminWithdrawPopup" type="text/x-jquery-tmpl">
+	<div class="popup_wrap">
+		<div class="popup_area">
+			<!--cause_withdraw/s-->
+			<div class="popup cause_withdraw">
+				<div class="text_area">
+					<textarea placeholder="회수사유"></textarea>
+				</div>
+				<div class="btn_area">
+					<a href="javascript:void(0);" class="btn close">취소</a>
+					<a href="javascript:void(0);" class="btn blue ok">확인</a>
+				</div>
+			</div><!--cause_withdraw/e-->
+		</div>
+	</div><!--popup/e-->
+</script>
+
+<script id="roomImagePopup" type="text/x-jquery-tmpl">
+	<div class="popup_wrap">
+		<div class="popup_area">
+			<!--room_position/s-->
+			<div class="popup room_position">
+				<div class="header">
+					<a href="javascript:void(0);" class="btn_close">닫기</a>
+					<p class="tit">회의실 위치<span class="floor">({%= floor %})</span></p>
+				</div>
+				<div class="container">
+					<div class="img_wrap">
+						<img src="<c:url value="/resources/css/img/room/{%= roomEmail %}.jpg" />" alt="sample image" onerror="this.remove();">
+						<img src="<c:url value="/resources/css/img/room/{%= roomEmail %}.png" />" alt="sample image" onerror="this.remove();">
+					</div>
+				</div>
+			</div><!--room_position/e-->
+		</div>
+	</div><!--popup/e-->
+</script>

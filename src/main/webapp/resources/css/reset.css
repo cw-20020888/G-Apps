@@ -1,0 +1,12 @@
+/* reset css */
+html,body{height:100%;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+fieldset,img{border:0 none;}
+dl,ul,ol,menu,li{list-style:none;}
+button{border:0 none;background-color:transparent;cursor:pointer;}
+body,th,td,input,select,button{font-size:12px;font-family:'Malgun Gothic', dotum, sans-serif, Arial;color:#3B3B3B;}
+a{color:#000;text-decoration:none;cursor:pointer;}
+i{display:inline-block;font-size:0;line-height:0;text-indent:-9999px;}
+
+.main{background: none;}

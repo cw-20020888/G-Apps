@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<!-- init annotation scheduler -->
+	<task:scheduler id="taskScheduler" pool-size="30" />
+	<task:executor id="taskExecutor" pool-size="30" />
+	<task:annotation-driven scheduler="taskScheduler" executor="taskExecutor" />
+	
+	<!-- init custom scheduler -->
+	<bean id="cstmTaskSchedulerFactory" class="com.kcube.cloud.task.TaskSchedulerFactory" init-method="init">
+		<constructor-arg index="0">
+			<map>
+				<entry key="endSchedule">
+					<list>
+						<bean class="com.kcube.cloud.schedule.Scheduler$NotifyEndSchedule">
+							<property name="key" value="endSchedule" />
+							<property name="name" value="일정 종료시 예약자에게 회의록 작성 독려메일 발송 스케줄러" />
+						</bean>
+						<bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" />
+					</list>
+				</entry>
+				<entry key="dataStoreSchedule">
+					<list>
+						<bean class="com.kcube.cloud.schedule.Scheduler$DataStoreSchedule">
+							<property name="key" value="endSchedule" />
+							<property name="name" value="회의실 예약내역 데이터스토어 저장 스케쥴러" />
+						</bean>
+						<bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" />
+					</list>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>

@@ -1,0 +1,88 @@
+/* 2015 03 03 css추가*/
+html,body,.wrap{height: 100%;}
+
+/* TODO : 시안과 다른부분 차후 수정 */
+a { color: #000;text-decoration: none;cursor: pointer;}
+
+/* 문서조회 */
+.content_sec{overflow:hidden;padding:57px 25px 40px 25px;}
+.content_sec .header_area{border-bottom:1px solid #C6C6C6;position:absolute;top:0;left:25px;right:25px;margin:0;}
+.content_sec .header_area .menu_loc{height: 56px;}/* 150224 수정*/
+.content_sec .header_area .menu_loc {}/*padding-right: 281px;*//* 150224 수정*/
+.content_sec .header_area .menu_loc .table_contentMenu{padding: 0 0;height: 56px;min-width: 100%;table-layout: fixed;}/* 150224 수정*/
+.content_sec .header_area .menu_loc .contentMenuLeft_td .btn_place{margin: 0;}
+.content_sec .header_area .menu_loc .contentMenuLeft_td .btn_place .btn{margin-top: 10px;}
+.content_sec .header_area .menu_loc .contentMenuRight_td{}
+.content_sec .header_area .menu_loc .contentMenuRight_td .btn_place .btn{margin-top: 10px;}
+
+.content_sec .body_area{position:relative;top:0;padding:0;margin:0;float:inherit;width:inherit;}
+.content_sec .body_area .body_inner_wrap{position:relative;padding-bottom:0;margin-right:0;}
+.content_sec .body_area .body_inner_wrap .compose_loc{margin-right:260px;padding:13px 0 19px 0;background-color:#EDEDED;border-top:none;text-align:center;}
+.content_sec .body_area .menu_loc{margin-right: 0; height: 51px;border-top: 1px solid #C6C6C6;border-bottom: 1px solid #EDEDED;}/* 150224 수정*/
+.content_sec .body_area .menu_loc .table_contentMenu{width: 100%; height: 100%;}
+.content_sec .body_area .menu_loc .contentMenuRight_td .btn_place .GroupButton{float: left;}
+.content_sec .body_area .compose_loc{padding: 12px 0 21px 0;background-color: #EDEDED;border-top: 1px solid #E6E6E6;text-align: center;}
+
+.horizontal{}
+.horizontal .content_sec .body_area .body_inner_wrap .compose_loc{margin-right:0;}
+.horizontal .content_sec .aside{position:relative;top:inherit;right:inherit;padding:22px 0 0 0;width:100%;}
+
+.table_contentMenu td .vl{float: left;margin: 12px 10px 0 10px;border-left: 1px dotted #DCDBDB;width: 0;height: 25px;line-height: 0;font-size: 0;}
+.table_contentMenu .contentMenuLeft_td .btn_place .btn{margin-top: 10px;}
+.table_contentMenu .contentMenuRight_td .btn_place{float: right;display: inline-block;}
+.table_contentMenu .contentMenuRight_td .btn_place .btn{float: left;margin-top: 10px;}
+
+.doc_wrap{display: inline-block;padding: 30px;width: 730px;border: 1px solid #DEDEDE;background-color: #fff;box-shadow:2px 2px 5px 0 rgba(0,0,0,0.07);}
+.doc_wrap .sample{margin-bottom: 20px;vertical-align: top;}
+.doc_wrap .file_area{margin: 0 auto;}
+.doc_wrap .files {font-family: 'Gulim','Dotum','Arial'; font-size: 12px; color: #7c7c7c; height: auto; line-height: 23px; margin: 0;}
+.doc_wrap .table_file_view{border: 1px solid #CCC;/* border-top: none; */}
+.doc_wrap .table_file_view th{height: auto;border-color: #ccc;vertical-align: middle;text-align: center;}
+.doc_wrap .table_file_view th .txt{margin: 0;}
+.doc_wrap .table_file_view td{border-color: #ccc;padding: 10px 12px 10px 12px;vertical-align: middle;}
+.doc_wrap .table_file_view td .txt{margin: 0;}
+.doc_wrap .table_file_view .tr_file{}
+.doc_wrap .table_file_view .tr_file .btn_wrap{margin-bottom: 5px;}
+.doc_wrap .table_file_view .selected_input{position: relative;padding: 0 47px 0 0;}
+.doc_wrap .table_file_view .selected_input .btn_wrap{position: absolute;top: 0;right: 0;width: 43px;}
+.doc_wrap .table_file_view .selected_input .btn_wrap .btn24{padding: 0 8px 0 9px;}
+.doc_wrap .table_file_view .selected_input .btn_wrap .btn24:first-child{margin-bottom: 2px;}
+.doc_wrap .table_file_view .btn24 .btn_txt{font-weight: bold;}
+
+.file_name a {white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+.file_name a:hover{text-decoration: underline;}
+.file_name img {float:left; padding-right:10px; padding-top: 2px;}
+
+.content_sec .aside{position:absolute;top:57px;right:25px;float:inherit;margin:0;width:260px;padding:22px 20px 0 20px;box-sizing:border-box;display:none;overflow-y:auto;}
+.aside_cmt{position: relative;z-index: 1;}
+.aside_cmt .title{padding-top: 7px;height: 26px;border-bottom: 1px solid #F0F0F0;}
+.aside_cmt h1{padding: 0 0 0 23px;height: 16px;line-height: 17px;color: #2C303B;font-weight: bold;background: url(img/comment.gif) 0 0 no-repeat;}
+.aside_cmt .cmt_list{}
+.aside_cmt .cmt_item{padding: 13px 0 13px 0;border-bottom: 1px solid #EEE;}
+.aside_cmt .cmt{word-break: break-word;color: #555;line-height: 18px;}
+.aside_cmt .info{padding: 1px 0 0 0;}
+.aside_cmt .info p{line-height: 14px;}
+.aside_cmt .info p:first-child{margin-bottom: 3px;}
+.aside_cmt .info .username{color: #303030;font-weight: bold;}
+.aside_cmt .info .userinfo{color: #707070;}
+.aside_cmt .info .userinfo span{display: inline;}
+.aside_cmt .regtime{height: 18px;line-height: 18px;color: #999;font-size: 11px;font-family: 'Tahoma','Arial';}
+.aside_cmt .cmt_top{margin-bottom: 10px;padding: 0 0 0 40px;position: relative;}
+.aside_cmt .cmt_top:after{display: block;content: "";clear: both;}
+.aside_cmt .cmt_top .thumb{position: absolute;left: 0;top: 0;width: 32px;height: 32px;background: url(img/thumb32.gif) 0 0 no-repeat;}
+.aside_cmt .cmt_top .thumb img{width: 100%;height: 100%;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15);}
+.aside_cmt .cmt_center{margin-bottom: 5px;}
+.aside_cmt .cmt_bottom{}
+.aside_cmt .cmt_bottom:after{display: block;content: "";clear: both;}
+.aside_cmt .cmt_bottom .indicator{float: left;margin: 0;}
+.aside_cmt .cmt_bottom .regtime{float: left;margin: 0 0 0 9px;}
+
+/* alert */
+.alertBox{margin: 184px auto 0 auto;width: 481px;border: 1px solid #E1E1E1;}
+.alertBox .alertBox_header{height: 46px;text-align: center;}
+.alertBox .alertBox_header h1{display: inline-block;margin: 15px 0 0 0;padding: 0 0 0 29px;height:17px;line-height: 19px;font-size: 14px;font-family: 'Gulim';font-weight: bold;color: #5a5c70;background: url(../css/img/i_alert_tri.gif) 0 0 no-repeat;}
+.alertBox .alertBox_body{min-height: 170px;background: #f6f6f6 url(img/bg_view_alert.gif) 42px 31px no-repeat;}
+.alertBox .alertBox_body p{margin-bottom: 2px;line-height: 18px;padding: 0 20px 0 118px;}
+.alertBox .alertBox_body .pg_q{padding-top: 32px;font-size: 13px;font-family: 'Gulim';color: #20232c;}
+.alertBox .alertBox_body .pg_owner{margin-bottom: 14px;color: #686868;}
+.alertBox .alertBox_body .btn_area{padding: 30px 0 30px 0;text-align: center;}

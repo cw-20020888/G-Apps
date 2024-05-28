@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <sec:http pattern="/_ah/**" security="none" />
+    <sec:http pattern="/cronjob/**" security="none" />
+    <sec:http pattern="/worker/**" security="none" />
+    <sec:http pattern="/ws/**" security="none" />
+    <sec:http pattern="/error/**" security="none" />
+    <sec:http pattern="/pub/**" security="none" />
+	<sec:http pattern="/resources/**" security="none" />
+	<sec:http pattern="/logoutSuccess" security="none" />
+	<sec:http pattern="/favicon.ico" security="none" />
+	<sec:http pattern="/cwlogin" security="none" />
+    <sec:http use-expressions="true" disable-url-rewriting="true" entry-point-ref="clientAuthenticationEntryPoint">
+    	<sec:http-basic />
+        <sec:logout logout-url="/logout" logout-success-url="/logoutSuccess" invalidate-session="true" delete-cookies="JSESSIONID" />
+        <sec:session-management session-authentication-strategy-ref="securityAuthenticationSessionStrategy" />
+        <sec:anonymous enabled="false" />
+
+        <!--
+        	10000000000000000 google login User
+        	10000000100000000 google login User with system.adminEmails properties
+        	10000000200000000 hexa login User
+        	10000000300000000 google or hexa login User with mobile device
+         -->
+        <sec:intercept-url pattern="/expired" access="permitAll" />
+        <sec:intercept-url pattern="/mobile/**" access="hasAnyRole('10000000300000000')" />
+		<sec:intercept-url pattern="/admin/**" access="hasAnyRole('10000000100000000')" />
+		<sec:intercept-url pattern="/mail/**" access="hasAnyRole('10000000000000000','10000000100000000')" />
+		<sec:intercept-url pattern="/schedule/**" access="hasAnyRole('10000000000000000','10000000100000000','10000000200000000')" />
+		<sec:intercept-url pattern="/**" access="isFullyAuthenticated()" />
+        <!-- This is the crucial part and the wiring is very important -->
+        <!--
+            The order in which these filters execute are very important. oauth2ClientContextFilter must be invoked before
+            oAuth2AuthenticationProcessingFilter, that's because when a redirect to Google is required, oAuth2AuthenticationProcessingFilter
+            throws a UserRedirectException which the oauth2ClientContextFilter handles and generates a redirect request to Google.
+            Subsequently the response from Google is handled by the oAuth2AuthenticationProcessingFilter to populate the
+            Authentication object and stored in the SecurityContext
+        -->
+        <sec:custom-filter ref="oauth2ClientContextFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
+        <sec:custom-filter ref="securityAuthenticationCompositeFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+
+
+	</sec:http>
+
+	<bean id="securityAuthenticationSessionRegistry" class="com.kcube.cloud.security.SecurityAuthenticationSessionRegistry" />
+
+  	<bean id="securityAuthenticationSessionStrategy" class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+		<constructor-arg>
+		    <list>
+<!--  session-management limit session -->
+<!-- 		    	<bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy"> -->
+<!-- 		    		<constructor-arg ref="securityAuthenticationSessionRegistry"/> -->
+<!-- 		        	<property name="maximumSessions" value="1" /> -->
+<!-- 					limit session and expired first session  -->
+<!-- 		        	<property name="exceptionIfMaximumExceeded" value="false" /> -->
+<!-- 		        	limit session and expired second session -->
+<!-- 		        	<property name="exceptionIfMaximumExceeded" value="true" /> -->
+<!-- 		      	</bean> -->
+		      	<bean class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+		      	<bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+		        	<constructor-arg ref="securityAuthenticationSessionRegistry"/>
+		      	</bean>
+		    </list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="securityAuthenticationCompositeFilter" class="org.springframework.web.filter.CompositeFilter">
+	    <property name="filters">
+	        <list>
+				<ref bean="cowayAuthenticationFilter"/>
+	        	<ref bean="netmarbleAuthenticationFilter"/>
+	            <ref bean="oAuth2AuthenticationProcessingFilter"/>
+	        </list>
+	    </property>
+	</bean>
+
+	<bean id="cowayAuthenticationFilter" class="com.kcube.cloud.security.CowaySecurityAuthenticationFilter">
+		<constructor-arg name="defaultFilterProcessesUrl" value="/cauth"/>
+		<property name="sessionAuthenticationStrategy" ref="securityAuthenticationSessionStrategy" />
+		<property name="authenticationSuccessHandler" ref="securityAuthenticationSuccessHandler" />
+		<property name="authenticationFailureHandler" ref="cowayAuthenticationFailureHandler" />
+	</bean>
+
+	<bean id="netmarbleAuthenticationFilter" class="com.kcube.cloud.security.NetmarbleSecurityAuthenticationFilter">
+		<constructor-arg name="defaultFilterProcessesUrl" value="/nauth"/>
+		<property name="sessionAuthenticationStrategy" ref="securityAuthenticationSessionStrategy" />
+		<property name="authenticationSuccessHandler" ref="securityAuthenticationSuccessHandler" />
+		<property name="authenticationFailureHandler" ref="netmarbleAuthenticationFailureHandler" />
+	</bean>
+
+    <bean id="oAuth2AuthenticationProcessingFilter" class="com.kcube.cloud.security.OAuth2SecurityAuthenticationProcessingFilter">
+        <constructor-arg name="defaultFilterProcessesUrl" value="/googleLogin"/>
+        <property name="sessionAuthenticationStrategy" ref="securityAuthenticationSessionStrategy" />
+        <property name="restTemplate" ref="googleRestTemplate"/>
+        <property name="tokenServices" ref="tokenServices"/>
+        <property name="authenticationSuccessHandler" ref="securityAuthenticationSuccessHandler" />
+<!-- 		<property name="authenticationSuccessHandler" ref="googleAuthenticationSuccessHandler" /> -->
+<!-- 		<property name="authenticationFailureHandler" ref="googleAuthenticationFailureHandler" /> -->
+    </bean>
+
+    <!--
+        This authentication entry point is used for all the unauthenticated or unauthorised sessions to be directed to the
+        /googleLogin URL which is then intercepted by the oAuth2AuthenticationProcessingFilter to trigger authentication from
+        Google.
+    -->
+    <bean id="clientAuthenticationEntryPoint" class="com.kcube.cloud.security.GoogleLoginUrlAuthenticationEntryPoint">
+        <property name="loginFormUrl" value="/googleLogin"/>
+    </bean>
+
+    <!--
+        These token classes are mostly a clone of the Spring classes but have the structure modified so that the response
+        from Google can be handled.
+    -->
+    <bean id="tokenServices" class="com.kcube.cloud.security.oauth2.GoogleTokenServices">
+        <property name="checkTokenEndpointUrl" value="https://www.googleapis.com/oauth2/v1/tokeninfo"/>
+        <property name="clientId" value="#{appProp['google.client.id']}"/>
+        <property name="clientSecret" value="#{appProp['google.client.secret']}"/>
+        <property name="accessTokenConverter">
+            <bean class="com.kcube.cloud.security.oauth2.GoogleAccessTokenConverter">
+                <property name="userTokenConverter" ref="defaultUserAuthenticationConverter" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="defaultUserAuthenticationConverter" class="com.kcube.cloud.security.oauth2.DefaultUserAuthenticationConverter" />
+
+	<bean id="securityAuthenticationSuccessHandler" class="com.kcube.cloud.security.SecurityAuthenticationSuccessHandler" />
+
+	<bean id="netmarbleAuthenticationFailureHandler" class="com.kcube.cloud.security.NetmarbleAuthenticationFailureHandler" />
+	<bean id="cowayAuthenticationFailureHandler" class="com.kcube.cloud.security.CowayAuthenticationFailureHandler"/>
+
+<!-- 	<bean id="googleAuthenticationSuccessHandler" class="com.kcube.cloud.security.GoogleAuthenticationSuccessHandler" /> -->
+
+<!-- 	<bean id="googleAuthenticationFailureHandler" class="com.kcube.cloud.security.GoogleAuthenticationFailureHandler" /> -->
+
+	<bean id="passwordEncoder" class="com.kcube.cloud.security.SecurityAuthenticationPasswordEncoder">
+		<constructor-arg index="0" value="SHA-512" />
+		<constructor-arg index="1" value="false" />
+	</bean>
+
+	<bean id="scheduleMonitorServiceSecurity" class="com.kcube.cloud.schedule.ScheduleMonitorServiceSecurity">
+		<property name="allowAddrs">
+			<list>
+				<value>211.104.82.0/24</value>
+				<value>119.196.11.0/24</value>
+				<value>119.196.12.0/24</value>
+				<value>119.206.203.0/24</value>
+				<value>121.140.1.0/24</value>
+				<value>121.140.2.0/24</value>
+				<value>175.207.8.0/22</value>
+				<value>183.110.16.0/22</value>
+				<value>183.110.20.0/24</value>
+				<value>218.145.96.0/24</value>
+				<value>218.153.63.0/24</value>
+				<value>221.148.85.0/24</value>
+				<value>221.148.168.0/24</value>
+				<value>222.106.56.0/24</value>
+				<value>222.106.57.0/24</value>
+				<value>222.112.234.0/24</value>
+				<value>222.122.176.0/24</value>
+				<value>222.122.177.0/24</value>
+				<value>222.122.191.0/24</value>
+				<value>175.207.7.0/24</value>
+				<value>220.95.228.0/24</value>
+				<value>38.142.237.66/32</value>
+				<value>123.51.201.192/27</value>
+				<value>202.137.13.64/26</value>
+				<value>202.77.110.0/24</value>
+				<value>92.45.79.104/30</value>
+				<value>182.50.16.140/32</value>
+				<value>119.92.83.46/32</value>
+				<value>218.17.82.133/32</value>
+				<value>115.87.234.72/32</value>
+				<value>123.51.201.213/32</value>
+				<value>123.51.201.218/32</value>
+				<value>220.130.193.79/32</value>
+				<value>211.45.228.90/32</value>
+				<value>216.2.70.90/32</value>
+				<value>172.90.38.196/32</value>
+				<value>121.170.195.0/24</value>
+				<value>39.110.206.169/32</value>
+				<value>58.137.167.128/26</value>
+				<value>58.137.167.154/32</value>
+				<value>103.7.29.8/32</value>
+				<value>58.250.17.205/32</value>
+				<value>150.107.249.128/25</value>
+				<value>58.250.17.104/32</value>
+				<value>58.250.17.105/32</value>
+				<value>58.250.17.106/32</value>
+				<value>218.17.141.76/32</value>
+				<value>116.25.46.55/32</value>
+				<value>38.142.237.67/32</value>
+				<value>58.225.253.34/32</value>
+				<value>211.215.200.98/32</value>
+				<value>122.55.75.230/32</value>
+				<value>222.238.70.194/32</value>
+				<value>193.165.232.202/32</value>
+				<value>61.161.203.170/32</value>
+				<value>222.122.176.77/32</value>
+				<value>1.214.179.26/32</value>
+				<value>106.246.233.242/32</value>
+				<value>221.150.52.96/32</value>
+				<value>221.150.52.97/32</value>
+				<value>221.150.52.98/32</value>
+				<value>221.150.52.99/32</value>
+				<value>221.150.52.100/32</value>
+				<value>221.150.52.101/32</value>
+				<value>221.150.52.102/32</value>
+				<value>221.150.52.103/32</value>
+				<value>221.150.52.104/32</value>
+				<value>221.150.52.105/32</value>
+				<value>221.150.52.106/32</value>
+				<value>221.150.52.107/32</value>
+				<value>221.150.52.108/32</value>
+				<value>221.150.52.109/32</value>
+				<value>221.150.52.110/32</value>
+				<value>221.150.52.111/32</value>
+				<value>221.150.52.112/32</value>
+				<value>221.150.52.113/32</value>
+				<value>221.150.52.114/32</value>
+				<value>221.150.52.115/32</value>
+				<value>221.150.52.116/32</value>
+				<value>221.150.52.117/32</value>
+				<value>221.150.52.118/32</value>
+				<value>221.150.52.119/32</value>
+				<value>221.150.52.120/32</value>
+				<value>221.150.52.121/32</value>
+				<value>221.150.52.122/32</value>
+				<value>221.150.52.123/32</value>
+				<value>221.150.52.124/32</value>
+				<value>221.150.52.125/32</value>
+				<value>221.150.52.126/32</value>
+				<value>221.150.52.127/32</value>
+				<value>221.150.52.128/32</value>
+				<value>221.150.52.129/32</value>
+				<value>221.150.52.130/32</value>
+				<value>221.150.52.131/32</value>
+				<value>221.150.52.132/32</value>
+				<value>221.150.52.133/32</value>
+				<value>221.150.52.134/32</value>
+				<value>221.150.52.135/32</value>
+				<value>221.150.52.136/32</value>
+				<value>221.150.52.137/32</value>
+				<value>221.150.52.138/32</value>
+				<value>221.150.52.139/32</value>
+				<value>221.150.52.140/32</value>
+				<value>221.150.52.141/32</value>
+				<value>221.150.52.142/32</value>
+				<value>221.150.52.143/32</value>
+				<value>221.150.52.144/32</value>
+				<value>221.150.52.145/32</value>
+				<value>221.150.52.146/32</value>
+				<value>221.150.52.147/32</value>
+				<value>221.150.52.148/32</value>
+				<value>221.150.52.149/32</value>
+				<value>221.150.52.150/32</value>
+				<value>221.150.52.151/32</value>
+				<value>221.150.52.152/32</value>
+				<value>221.150.52.153/32</value>
+				<value>221.150.52.154/32</value>
+				<value>221.150.52.155/32</value>
+				<value>221.150.52.156/32</value>
+				<value>221.150.52.157/32</value>
+				<value>221.150.52.158/32</value>
+				<value>221.150.52.159/32</value>
+				<value>127.0.0.1/32</value>
+			</list>
+		</property>
+	</bean>
+
+	<sec:authentication-manager alias="authenticationManager" />
+</beans>

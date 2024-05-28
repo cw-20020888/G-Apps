@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+/target/
+/.idea/
+/src/main/resources/netmarble-dev-89a44b3d6ddd.p12
+/src/main/resources/netmarble-dev-361b578d0c91.json
+/src/main/resources/nm-ngsuiteintranet-8f1e88a65049.p12
+/src/main/resources/nm-ngsuiteintranet-ae388c350497.json
+/src/main/resources/nm-prod-global-cw-cgsuite-399014594d27.json
+/src/main/resources/nm-prod-global-cw-cgsuite-ee7b406e8e02.p12
+/src/main/resources/coway-g-apps-703e36907368.json
+/src/main/resources/coway-g-apps-51ab291e87d1.p12

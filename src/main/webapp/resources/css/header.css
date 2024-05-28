@@ -1,0 +1,17 @@
+/********************
+* header
+********************/
+.header{position:relative;height:64px;padding:0 48px 0 0;background:#FFF;overflow:hidden; border-bottom:2px; border-bottom-color: #009ddc;}
+.header .menu_wrap{padding:0 27px;}
+.header .menu{padding:0 0 0 1px;overflow:hidden;}
+.header .menu .menu_item{position:relative;float:left;min-width:110px;padding:0 9px;margin:0 0 0 -1px;border-left:1px solid #3a3a3a;border-right:1px solid #3a3a3a;}
+.header .menu .menu_item a{display:block;height:64px;font-size:0;text-align:center;}
+.header .menu .menu_item .txt{display:block;padding:17px 0 0 0;color:#FFF;font-size:18px;font-weight:bold;letter-spacing:-1px;}
+.header .menu .menu_item.selected{z-index:10;min-width:112px;border:none;border-top:6px solid #4285f4;background:#FFF;box-shadow: 0 1px rgba(0,0,0,0.3);}
+.header .menu .menu_item.selected a{}
+.header .menu .menu_item.selected .txt{padding:11px 0 0 0;color:#474240;}
+.header .menu .menu_link{display:inline-block;*zoom:1;*display:inline;min-width:110px;padding:0 9px;margin:0 0 0 -1px;border-left:1px solid #3a3a3a;border-right:1px solid #3a3a3a;}
+.header .menu .menu_link a{display:block;height:64px;font-size:0;text-align:center;}
+.header .menu .menu_link .txt{display:inline-block;padding:17px 0 0 0;color:#FFF;font-size:18px;font-weight:bold;letter-spacing:-1px;}
+.header .menu .menu_link .i_link{margin:0 0 -3px 5px;}
+.header .btn_set{position:absolute;top:12px;right:18px;display:block;width:20px;height:20px;padding:10px;background:url(../css/images/btn_set_menu.png) 10px 10px no-repeat;font-size:0;text-indent:-9999px;}

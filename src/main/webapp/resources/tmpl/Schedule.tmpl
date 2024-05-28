@@ -1,0 +1,338 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="/WEB-INF/tld/customTagLibrary.tld" prefix="util" %>
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/reserve.css?nocache=${util:getServerDate()}" />" />
+<script type="text/javascript" src="<c:url value="/resources/js/ScheduleEvent.js?nocache=${util:getServerDate()}" />"></script>
+<script id="scheduleWrap" type="text/x-jquery-tmpl">
+	<!--wrap/s-->
+	<div class="wrap">
+		<!--contents/s-->
+		<div class="contents_wrap">
+			<div class="contents">
+				<!--reserve/s-->
+				<div class="reserve">
+					<div class="set_area">
+						<div class="set_date">
+							<input type="text" id="datepicker">
+						</div>
+						<div class="set_place">
+							<div class="building">
+								<div class="custom_select">
+									<div class="slt"><span class="txt">건물선택</span></div>
+									<div class="layer_opt">
+										<ul class="txt_list">
+											{%if JSV.isNotEmpty(user.buildings)%}
+												{%each(index, item) user.buildings%}
+												<li><a href="javascript:void(0);" class="build_item" id="{%= item.id %}">{%= item.name %}</a></li>
+												{%/each%}
+											{%/if%}
+											<li><a href="javascript:void(0);" class="pub_reserve">G타워 공용회의실</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<span class="bar"></span>
+							<div class="floor">
+								<!--custom_select/s-->
+								<div class="custom_select">
+									<div class="slt"><span class="txt">층 선택</span></div>
+									<div class="layer_opt">
+										<ul class="cnk_list"></ul>
+										<div class="btn_area">
+											<div class="btn_wrap">
+												<a href="javascript:void(0);" class="btn">닫기</a>
+												<a href="javascript:void(0);" class="btn blue floor_onok">확인</a>
+											</div>
+										</div>
+									</div>
+								</div><!--custom_select/e-->
+							</div>
+						</div>
+						<div class="btn_reserve_area">
+							<a href="javascript:void(0);" class="btn_reserve">회의실 예약하기</a>
+							<!--a href="javascript:void(0);" class="btn_reserve_guide">회의실 예약 가이드</a-->
+						</div>
+					</div>
+					<div>
+						<table class="timeGrape" cellpadding="0" cellspacing="0" border="0">
+							<colgroup>
+								<col width="3%">
+								<col>
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+							</colgroup>
+							<thead class="rt_head">
+								<tr>
+									<th>건물</th>
+									<th>층-회의실명-장비</th>
+									<th colspan="2">9시</th>
+									<th colspan="2">10시</th>
+									<th colspan="2">11시</th>
+									<th colspan="2">12시</th>
+									<th colspan="2">13시</th>
+									<th colspan="2">14시</th>
+									<th colspan="2">15시</th>
+									<th colspan="2">16시</th>
+									<th colspan="2">17시</th>
+									<th colspan="2">18시</th>
+									<th colspan="2">19시</th>
+									<th colspan="2">20시</th>
+									<th colspan="2">21시</th>
+									<th colspan="2">22시</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="tbl_area" style="max-height: 708px;border-bottom: 1px solid #e0e0e0;">
+						<table class="resrve_tbl" cellpadding="0" cellspacing="0" border="0">
+							<colgroup>
+								<col width="3%">
+								<col>
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+								<col width="3%">
+							</colgroup>
+							<tbody class="rt_body">
+							</tbody>
+						</table>
+					</div>
+				</div><!--reserve/e-->
+			</div>
+		</div><!--contents/e-->
+	</div><!--wrap/e-->
+</script>
+
+<script id="room" type="text/x-jquery-tmpl">
+<tr class="roomTr" data-email="{%= email %}" data-name="{%= name %}" data-floor="{%= floorName %}">
+	<td class="td_resource">
+		{%if JSV.isNotEmpty(featureNames)%}<span class="tooltip">{%= featureNames %}</span>{%/if%}
+		<span class="txt" style="cursor:pointer" title="{%= dispName %}">{%= dispName %}</span>
+		{%if JSV.isNotEmpty(features) %}
+			{%each(index, item) features%}
+				{%if index < 3%}<span class="resource i_{%= convertFeatureName(item.name) %}" title="{%= item.name %}"></span>{%/if%}
+			{%/each%}
+		{%/if%}
+	</td>
+	<td class="td_time" data-hour="09" data-min="00"></td>
+	<td class="td_time" data-hour="09" data-min="30"></td>
+	<td class="td_time" data-hour="10" data-min="00"></td>
+	<td class="td_time" data-hour="10" data-min="30"></td>
+	<td class="td_time" data-hour="11" data-min="00"></td>
+	<td class="td_time" data-hour="11" data-min="30"></td>
+	<td class="td_time" data-hour="12" data-min="00"></td>
+	<td class="td_time" data-hour="12" data-min="30"></td>
+	<td class="td_time" data-hour="13" data-min="00"></td>
+	<td class="td_time" data-hour="13" data-min="30"></td>
+	<td class="td_time" data-hour="14" data-min="00"></td>
+	<td class="td_time" data-hour="14" data-min="30"></td>
+	<td class="td_time" data-hour="15" data-min="00"></td>
+	<td class="td_time" data-hour="15" data-min="30"></td>
+	<td class="td_time" data-hour="16" data-min="00"></td>
+	<td class="td_time" data-hour="16" data-min="30"></td>
+	<td class="td_time" data-hour="17" data-min="00"></td>
+	<td class="td_time" data-hour="17" data-min="30"></td>
+	<td class="td_time" data-hour="18" data-min="00"></td>
+	<td class="td_time" data-hour="18" data-min="30"></td>
+	<td class="td_time" data-hour="19" data-min="00"></td>
+	<td class="td_time" data-hour="19" data-min="30"></td>
+	<td class="td_time" data-hour="20" data-min="00"></td>
+	<td class="td_time" data-hour="20" data-min="30"></td>
+	<td class="td_time" data-hour="21" data-min="00"></td>
+	<td class="td_time" data-hour="21" data-min="30"></td>
+	<td class="td_time" data-hour="22" data-min="00"></td>
+	<td class="td_time" data-hour="22" data-min="30"></td>
+</tr>
+</script>
+
+<script id="scheduleEvent" type="text/x-jquery-tmpl">
+<div class="time_box" title="{%= name %}">
+	<span class="time">{%= time %}</span>
+	<span class="name">{%= name %}</span>
+</div>
+</script>
+
+<script id="scheduleInfo" type="text/x-jquery-tmpl">
+	<div class="layer_reserve_info {%= colorType %}">
+		<div class="header_wrap">
+			<div class="header_right">
+				{%if !user.googleLogin && user.intraEmail.toLowerCase() == email.toLowerCase()%}
+					<a href="javascript:void(0);" class="btn_delete" style="display:block;">삭제</a>
+				{%/if%}
+				<a href="javascript:void(0);" class="btn_close">닫기</a>
+			</div>
+			<div class="header" style="z-index: auto !important;"></div>
+		</div>
+		<div class="layer_password">
+			<label for="reservePW" class="lbl_pw">비밀번호</label>
+			<input type="password" name="reserve_password" id="reservePW" class="ipt_pw">
+			<a href="javascript:void(0);" class="btn_confirm">확인</a>
+		</div>
+		<div class="contents">
+			<p class="time">{%= time %}</p>
+		 	{%if JSV.isNotEmpty(creator) %}
+				<p class="name">{%= creator %}</p>
+		 	{%/if%}
+		 	{%if JSV.isNotEmpty(cellPhone) %}
+			 	<p class="num">{%= cellPhone %}</p>
+		 	{%/if%}
+		 	{%if JSV.isNotEmpty(email) %}
+			 	<p class="email">{%= email %}</p>
+		 	{%/if%}
+		</div>
+	</div>
+</script>
+
+<script id="addSchedule" type="text/x-jquery-tmpl">
+	<div class="popup_wrap">
+		<div class="popup_area">
+			<!--reserve_room/s-->
+			<div class="popup reserve_room">
+				<div class="header">
+					<p class="tit">회의실 예약</p>
+				</div>
+				<div class="container">
+					<p class="user">
+						<span class="name" title="{%= user.fullName %}">{%= user.fullName %}</span>
+						<span class="email" title="{%= user.intraEmail %}">{%= user.intraEmail %}</span>
+					</p>
+					<div class="set_area">
+						<div class="row input_tit">
+							<input type="text" class="ipt_txt validate" name="input_meeting_title" data-vd-fieldname="제목">
+						</div>
+						<div class="row choice_room">
+							<div class="set_place">
+								<div class="building">
+									<!--custom_select/s-->
+									<div class="custom_select">
+										<div class="slt"><span class="txt validate" data-vd-fieldname="건물" data-type="resource" data-default="건물선택">건물선택</span></div>
+										<div class="layer_opt" style="display:none;">
+											<ul class="txt_list">
+												{%if JSV.isNotEmpty(user.buildings)%}
+													{%each(index, item) user.buildings%}
+													<li><a href="javascript:void(0);" class="build_item" id="{%= item.id %}">{%= item.name %}</a></li>
+													{%/each%}
+												{%/if%}
+											</ul>
+										</div>
+									</div><!--custom_select/e-->
+								</div>
+								<span class="bar"></span>
+								<div class="floor">
+									<!--custom_select/s-->
+									<div class="custom_select">
+										<div class="slt"><span class="txt validate" data-vd-fieldname="층" data-type="resource" data-default="층 선택">층 선택</span></div>
+										<div class="layer_opt" style="display:none;">
+											<ul class="cnk_list">
+											</ul>
+											<div class="btn_area">
+												<div class="btn_wrap">
+													<a href="javascript:void(0);" class="btn">닫기</a>
+													<a href="javascript:void(0);" class="btn blue floor_onok">확인</a>
+												</div>
+											</div>
+										</div>
+									</div><!--custom_select/e-->
+								</div>
+								<span class="bar"></span>
+								<div class="room">
+									<!--custom_select/s-->
+									<div class="custom_select">
+										<div class="slt"><span class="txt validate" data-vd-fieldname="회의실" data-type="resource" data-default="회의실 선택">회의실 선택</span></div>
+										<div class="layer_opt" style="display:none;">
+											<ul class="txt_list"></ul>
+										</div>
+									</div><!--custom_select/e-->
+								</div>
+							</div>
+						</div>
+						<div class="row choice_time">
+							<div class="set_time">
+								<div class="time start">
+									<input type="text" class="ipt_date" id="sDatePicker">
+									<input type="text" class="ipt_time validate" maxlength="2" onkeyup="keyupFunction(this, 'time')" data-type="time" data-vd-fieldname="시작 시간">
+									<span class="dot">:</span>
+									<input type="text" class="ipt_min validate" maxlength="2" onkeyup="keyupFunction(this, 'min')" data-type="time" data-vd-fieldname="시작 분">
+								</div>
+								<span class="bar">-</span>
+								<div class="time end">
+									<input type="text" class="ipt_date" id="eDatePicker">
+									<input type="text" class="ipt_time validate" maxlength="2" onkeyup="keyupFunction(this, 'time')" data-type="time" data-vd-fieldname="종료 시간">
+									<span class="dot">:</span>
+									<input type="text" class="ipt_min validate" maxlength="2" onkeyup="keyupFunction(this, 'min')" data-type="time" data-vd-fieldname="종료 분">
+								</div>
+							</div>
+							<div class="chk_all">
+								<div class="chkbox">
+									<input type="checkbox" id="allTimeChk" name="종일선택/해제">
+									<label for="allTimeChk"><span>종일선택/해제</span></label>
+								</div>
+								<p class="txt">종일</p>
+							</div>
+						</div>
+					</div>
+					<!--layer_password/s-->
+					{%if !user.googleLogin%}
+						<div class="layer_password">
+							<label for="reservePW" class="lbl_pw">비밀번호</label>
+							<input type="password" name="reserve_password" id="reservePW" class="ipt_pw">
+						</div>
+					{%/if%}
+				</div>
+				<div class="btn_area">
+					<a href="javascript:void(0);" class="btn close">취소</a>
+					<a href="javascript:void(0);" class="btn blue onok">저장</a>
+				</div>
+			</div><!--reserve_room/e-->
+		</div>
+	</div><!--popup/e-->
+</script>

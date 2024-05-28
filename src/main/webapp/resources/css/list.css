@@ -1,0 +1,25 @@
+/* list */
+/* 141007 */
+.list_table_wrap .list_table .col_type span{height: 16px;line-height: 17px;margin: 0 12px;display: block;color: #707070;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;vertical-align: top;}
+/* .list_table_wrap .list_table td span{width: 100%;height: 24px;line-height: 28px;margin: 0 0;display: block;color: #707070;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;vertical-align: top;} */
+/* //141007 */
+.list_table_wrap .list_table .col_author{text-align: center;}
+.list_table_wrap .list_table .col_attach{padding-right: 10px;}/* 150224 수정*/
+.list_table_wrap .list_table td.col_author{}
+.list_table_wrap .list_table td.col_author a{color: #666;}
+.list_table_wrap .list_table td.col_author a:hover{color: #20232C;}
+.list_table_wrap .list_table td.col_step{color: #272727;text-align: center;}
+.list_table_wrap .list_table td.col_date{color: #707070;font-family: 'gulim','dotum';text-align: center;}/* 150224 수정*/
+.list_table_wrap .list_table td.col_attach{text-align: center;}
+.list_table_wrap .list_table td.col_attach img{vertical-align: top;}
+.list_table_wrap .list_table td.col_user_step{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+
+.list_table_wrap .list_table td.address{height: 46px;}
+.list_table_wrap .list_table td.address span.txt{width: 100%;text-align: left; padding-left: 15px; margin: 0 0; height: 10px; line-height: 10px; color: #20232C; white-space: nowrap; font-family: '굴림', gulim, '돋움', dotum, sans-serif, Arial; font-size: 11px;}
+
+.list_table_wrap .list_table td.dprtName span.txt {text-align: left;}
+
+.attachment {cursor: default;}
+.newIcon {margin-top: 3px;}
+
+.tempDel{width: 30px;height: 13px;background: url(./img/btn/btn_del.gif);}

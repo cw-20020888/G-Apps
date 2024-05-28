@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:encryption="http://www.jasypt.org/schema/encryption"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.jasypt.org/schema/encryption http://www.jasypt.org/schema/encryption/jasypt-spring3-encryption-1.xsd">
+			
+	<encryption:encryptor-config id="jasyptEncConfig" password="7654329876543210" algorithm="PBEWithMD5AndDES"/>
+	<encryption:string-encryptor id="stringEnc" config-bean="jasyptEncConfig"/>
+	
+	<beans profile="local">
+		<bean id="appProp" class="org.jasypt.spring3.xml.encryption.EncryptablePropertiesFactoryBean">  
+	        <property name="encryptor">
+	        	<ref bean="stringEnc" /> 
+			</property>  
+	        <property name="locations">  
+	            <list>  
+	                <value>classpath:properties/application-local.properties</value>  
+	            </list>  
+	        </property>  
+		</bean>
+	</beans>
+	
+	<beans profile="dev">
+		<bean id="appProp" class="org.jasypt.spring3.xml.encryption.EncryptablePropertiesFactoryBean">  
+	        <property name="encryptor">
+	        	<ref bean="stringEnc" /> 
+			</property>  
+	        <property name="locations">  
+	            <list>  
+	                <value>classpath:properties/application-dev.properties</value>  
+	            </list>  
+	        </property>  
+		</bean>
+	</beans>
+	
+	<beans profile="prod">
+		<bean id="appProp" class="org.jasypt.spring3.xml.encryption.EncryptablePropertiesFactoryBean">  
+	        <property name="encryptor">
+	        	<ref bean="stringEnc" /> 
+			</property>  
+	        <property name="locations">
+	            <list>  
+	                <value>classpath:properties/application.properties</value>  
+	            </list>  
+	        </property>  
+		</bean>
+	</beans>
+</beans>

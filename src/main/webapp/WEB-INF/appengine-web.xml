@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+  	<threadsafe>true</threadsafe>
+  	<sessions-enabled>true</sessions-enabled>
+  	<runtime>java8</runtime>
+
+	<!-- basic,manual-scaling class
+		B1(600MHz, 128MB),
+		B2(1.2GHz, 256MB),
+		B4(2.4GHz, 512MB),
+		B4_1G(2.4GHz, 1024MB),
+		B8(4.8GHz, 1024MB)
+	-->
+<!--	<instance-class>B4</instance-class>-->
+<!--	<basic-scaling>-->
+<!--		<idle-timeout>10m</idle-timeout>-->
+<!--		<max-instances>25</max-instances>-->
+<!--	</basic-scaling>-->
+	<instance-class>F4</instance-class>
+	<automatic-scaling>
+		<min-instances>2</min-instances>
+		<max-instances>100</max-instances>
+		<target-cpu-utilization>0.65</target-cpu-utilization>
+		<max-concurrent-requests>40</max-concurrent-requests>
+	</automatic-scaling>
+	<system-properties>
+		<property name="java.util.logging.config.file" value="WEB-INF/classes/appengine-logging.properties" />
+	</system-properties>
+
+	<env-variables>
+        <env-var name="SPRING_PROFILES_ACTIVE" value="prod" />
+    </env-variables>
+
+	<static-files>
+		<include path="/favicon.ico" />
+  		<include path="/resources/**" expiration="9h" />
+	</static-files>
+</appengine-web-app>

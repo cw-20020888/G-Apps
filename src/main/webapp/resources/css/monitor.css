@@ -1,0 +1,86 @@
+/********************
+* Font NanumSquare
+********************/
+@font-face {
+	font-family: NanumSquare;
+	font-style: normal;
+	font-weight: normal;
+	src: url(../webfont/NanumSquare/NanumSquareB.eot);
+	src: url(../webfont/NanumSquare/NanumSquareB.eot?#iefix) format('embedded-opentype'),
+	url(../webfont/NanumSquare/NanumSquareB.woff2) format('woff2'),
+	url(../webfont/NanumSquare/NanumSquareB.woff) format('woff'),
+	url(../webfont/NanumSquare/NanumSquareB.ttf) format('truetype');
+}
+@font-face {
+	font-family: NanumSquare;
+	font-style: normal;
+	font-weight: bold;
+	src: url(../webfont/NanumSquare/NanumSquareEB.eot);
+	src: url(../webfont/NanumSquare/NanumSquareEB.eot?#iefix) format('embedded-opentype'),
+	url(../webfont/NanumSquare/NanumSquareEB.woff2) format('woff2'),
+	url(../webfont/NanumSquare/NanumSquareEB.woff) format('woff'),
+	url(../webfont/NanumSquare/NanumSquareEB.ttf) format('truetype');
+}
+
+
+/********************
+* monitor
+********************/
+.monitor{width:1366px;height:768px;margin:0 auto;background:#FFF;font-family:NanumSquare,'Malgun Gothic';overflow:hidden;}
+.monitor .room{}
+.monitor .room .top_area{height:290px;background:#ffcc05;}
+.monitor .room .top_area h1{padding:80px 85px 0 85px;color:#553828;font-size:100px;font-weight:bold;letter-spacing:-6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.monitor .room .top_area .refreshBtn{width:60px;height:60px;float: right;margin-right: 15px;margin-top: 15px;}
+.monitor .room .btm_area{position:relative;height:465px;padding:0 99px;border-bottom:13px solid #ffcb05;}
+.monitor .room .btm_area:before{position:absolute;bottom:0;right:0;display:block;content:'';width:562px;height:423px;background:url(../css/images/bg_monitor.png) 0 0 no-repeat;}
+.monitor .room .btm_area .now{position:relative;z-index:2;padding:41px 0 0 0;overflow:hidden;}
+.monitor .room .btm_area .now .reserve{position:relative;padding:11px 0 5px 81px;margin:0 0 12px 0;color:#553828;font-size:46px;letter-spacing:-2px;line-height:52px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.monitor .room .btm_area .now .reserve:before{position:absolute;top:0;left:0;display:block;content:'';width:68px;height:68px;background-position:0 0;background-repeat:no-repeat;}
+.monitor .room .btm_area .now .reserve.time{color:#0a7bc9;padding:11px 0 5px 75px;}
+.monitor .room .btm_area .now .reserve.time:before{background-image:url(../css/images/i_monitor_time.png);}
+.monitor .room .btm_area .now .reserve.company{}
+.monitor .room .btm_area .now .reserve.company:before{background-image:url(../css/images/i_monitor_company.png);}
+.monitor .room .btm_area .now .reserve.person{}
+.monitor .room .btm_area .now .reserve.person:before{background-image:url(../css/images/i_monitor_person.png);}
+.monitor .room .btm_area .time_graph{position:relative;z-index:2;margin:32px 0 0 0;}
+.monitor .room .btm_area .time_graph .bg_pattern{position:absolute;top:0;left:0;width:100%;height:85px;background:#e5e5e5 url(../css/images/pattern_time_graph.gif) repeat;}
+.monitor .room .btm_area .time_graph table{position:relative;z-index:3;table-layout:fixed;width:100%;border-collapse:collapse;}
+.monitor .room .btm_area .time_graph table .td_time{height:85px;border-bottom:1px solid #553828;box-sizing:border-box;-webkit-box-sizing:border-box;}
+/* .monitor .room .btm_area .time_graph table .td_time.time_selected{border-left:1px solid #ffcb05;} */
+.monitor .room .btm_area .time_graph table .td_time.time_selected .time_box{border-left:1px solid #ffcb05;height:100%;background:#553828;overflow:hidden;}
+.monitor .room .btm_area .time_graph table .td_time.time_selected .time_box .txt{display:block;margin:15px 0 0 0;color:#ffc705;font-size:26px;font-weight:bold;letter-spacing:-0.5px;text-align:center;overflow:hidden;white-space:nowrap;/*text-overflow:ellipsis;*/}
+.monitor .room .btm_area .time_graph table .td_time.time_selected .time_box .name{display:block;margin:-6px 0 0 0;color:#FFF;font-size:18px;font-weight:bold;letter-spacing:-2px;text-align:center;overflow:hidden;white-space:nowrap;/*text-overflow:ellipsis;*/}
+.monitor .room .btm_area .time_graph ul{font-size:0;white-space:nowrap;}
+.monitor .room .btm_area .time_graph ul li{display:inline-block;*zoom:1;*display:inline;width:7.2%;padding:10px 0 0 0;}
+.monitor .room .btm_area .time_graph ul .time{position:relative;margin:0 0 0 -22px;color:#462f29;font-size:17px;font-weight:bold;letter-spacing:-1px;}
+.monitor .room .btm_area .time_graph ul .time:before{position:absolute;top:-18px;left:51%;display:block;content:'';width:1px;height:8px;background:#553828;}
+.monitor .room .btm_area .time_graph ul li:first-child .time:before{display:none;}
+.monitor .room .btm_area .time_graph ul li:last-child .time:before{display:none;}
+
+.monitor .room.Lside{float:left;width:50%;}
+.monitor .room.Lside .top_area h1{padding:80px 38px 0 38px;}
+.monitor .room.Lside .btm_area{padding:0 49px;}
+.monitor .room.Lside .btm_area:before{display:none;}
+.monitor .room.Lside .btm_area .time_graph{margin:37px 0 0 0;}
+.monitor .room.Lside .btm_area .time_graph .bg_pattern{height:80px;}
+.monitor .room.Lside .btm_area .time_graph table .td_time{height:80px;}
+.monitor .room.Lside .btm_area .time_graph table .td_time.time_selected .time_box .txt{font-size:16px;margin:23px 0 0 0;}
+.monitor .room.Lside .btm_area .time_graph table .td_time.time_selected .time_box .name{font-size:14px;margin:-4px 0 0 0;}
+.monitor .room.Lside .btm_area .time_graph ul .time{font-size:13px;margin:0 0 0 -16.5px;}
+
+.monitor .room.Rside{float:left;width:50%;}
+.monitor .room.Rside .top_area{background:#523627;}
+.monitor .room.Rside .top_area h1{padding:80px 48px 0 48px;color:#ffcb05;text-align:right;}
+.monitor .room.Rside .btm_area{padding:0 49px;border-bottom:13px solid #523627;}
+.monitor .room.Rside .btm_area:before{display:none;}
+.monitor .room.Rside .btm_area .time_graph{margin:37px 0 0 0;}
+.monitor .room.Rside .btm_area .time_graph .bg_pattern{height:80px;}
+.monitor .room.Rside .btm_area .time_graph table .td_time{height:80px;}
+.monitor .room.Rside .btm_area .time_graph table .td_time.time_selected .time_box .txt{font-size:16px;margin:23px 0 0 0;}
+.monitor .room.Rside .btm_area .time_graph table .td_time.time_selected .time_box .name{font-size:14px;margin:-4px 0 0 0;}
+.monitor .room.Rside .btm_area .time_graph ul .time{font-size:13px;margin:0 0 0 -16.5px;}
+.monitor .room.Rside .btm_area .now .reserve{position:relative;padding:11px 81px 5px 0;margin:0 0 12px 0;color:#553828;font-size:46px;letter-spacing:-2px;line-height:52px;text-align:right;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.monitor .room.Rside .btm_area .now .reserve:before{position:absolute;top:0;right:0;left:inherit;display:block;content:'';width:68px;height:68px;background-position:0 0;background-repeat:no-repeat;}
+.monitor .room.Rside .btm_area .now .reserve.time{color:#0a7bc9;padding:11px 80px 5px 0;}
+
+

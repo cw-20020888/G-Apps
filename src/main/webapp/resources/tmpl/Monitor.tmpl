@@ -1,0 +1,221 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/WEB-INF/tld/customTagLibrary.tld" prefix="util" %>
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/monitor.css?nocache=${util:getServerDate()}" />" />
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/gapps.css?nocache=${util:getServerDate()}" />" />
+<script id="monitor" type="text/x-jquery-tmpl">
+<div class="monitor">
+	{%if result.length > 1%}
+		{%each(index, item) result%}
+		<div class="room {%if index % 2 == 0%}Lside{%else%}Rside{%/if%}" data-email="{%= item.resourceEmail %}">
+			<div class="top_area">
+				{%if index % 2 != 0%}
+				<a class="refreshBtn" onClick="window.location.reload()">
+					<img src="<c:url value="/resources/css/images/refresh2.png" />" width="100%" height="100%"/>
+				</a>
+				{%/if%}
+				<h1>{%= item.floorName %}-{%= item.name %}</h1>
+			</div>
+			<div class="btm_area">
+				<div class="now">
+					<p class="reserve time">&nbsp;</p>
+					<p class="reserve company">&nbsp;</p>
+					<p class="reserve person">&nbsp;</p>
+				</div>
+				<div class="time_graph">
+					<span class="bg_pattern"></span>
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+							<col width="7.7%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<td class="td_time" data-hour="09" data-min="00"></td>
+								<td class="td_time" data-hour="09" data-min="30"></td>
+								<td class="td_time" data-hour="10" data-min="00"></td>
+								<td class="td_time" data-hour="10" data-min="30"></td>
+								<td class="td_time" data-hour="11" data-min="00"></td>
+								<td class="td_time" data-hour="11" data-min="30"></td>
+								<td class="td_time" data-hour="12" data-min="00"></td>
+								<td class="td_time" data-hour="12" data-min="30"></td>
+								<td class="td_time" data-hour="13" data-min="00"></td>
+								<td class="td_time" data-hour="13" data-min="30"></td>
+								<td class="td_time" data-hour="14" data-min="00"></td>
+								<td class="td_time" data-hour="14" data-min="30"></td>
+								<td class="td_time" data-hour="15" data-min="00"></td>
+								<td class="td_time" data-hour="15" data-min="30"></td>
+								<td class="td_time" data-hour="16" data-min="00"></td>
+								<td class="td_time" data-hour="16" data-min="30"></td>
+								<td class="td_time" data-hour="17" data-min="00"></td>
+								<td class="td_time" data-hour="17" data-min="30"></td>
+								<td class="td_time" data-hour="18" data-min="00"></td>
+								<td class="td_time" data-hour="18" data-min="30"></td>
+								<td class="td_time" data-hour="19" data-min="00"></td>
+								<td class="td_time" data-hour="19" data-min="30"></td>
+								<td class="td_time" data-hour="20" data-min="00"></td>
+								<td class="td_time" data-hour="20" data-min="30"></td>
+								<td class="td_time" data-hour="21" data-min="00"></td>
+								<td class="td_time" data-hour="21" data-min="30"></td>
+								<td class="td_time" data-hour="22" data-min="00"></td>
+								<td class="td_time" data-hour="22" data-min="30"></td>
+							</tr>
+						</tbody>
+					</table>
+					<ul>
+						<li><span class="time">09:00</span></li>
+						<li><span class="time">10:00</span></li>
+						<li><span class="time">11:00</span></li>
+						<li><span class="time">12:00</span></li>
+						<li><span class="time">13:00</span></li>
+						<li><span class="time">14:00</span></li>
+						<li><span class="time">15:00</span></li>
+						<li><span class="time">16:00</span></li>
+						<li><span class="time">17:00</span></li>
+						<li><span class="time">18:00</span></li>
+						<li><span class="time">19:00</span></li>
+						<li><span class="time">20:00</span></li>
+						<li><span class="time">21:00</span></li>
+						<li><span class="time">22:00</span></li>
+						<li><span class="time">23:00</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		{%/each%}
+	{%else%}
+	<div class="room" data-email="{%= result[0].resourceEmail %}">
+		<div class="top_area">
+			<a class="refreshBtn" onClick="window.location.reload()">
+				<img src="<c:url value="/resources/css/images/refresh2.png" />" width="100%" height="100%"/>
+			</a>
+			<h1>{%= result[0].floorName %}-{%= result[0].name %}</h1>
+		</div>
+		<div class="btm_area">
+			<div class="now">
+				<p class="reserve time">&nbsp;</p>
+				<p class="reserve company">&nbsp;</p>
+				<p class="reserve person">&nbsp;</p>
+			</div>
+			<div class="time_graph">
+				<span class="bg_pattern"></span>
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+						<col width="7.7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td class="td_time" data-hour="09" data-min="00"></td>
+							<td class="td_time" data-hour="09" data-min="30"></td>
+							<td class="td_time" data-hour="10" data-min="00"></td>
+							<td class="td_time" data-hour="10" data-min="30"></td>
+							<td class="td_time" data-hour="11" data-min="00"></td>
+							<td class="td_time" data-hour="11" data-min="30"></td>
+							<td class="td_time" data-hour="12" data-min="00"></td>
+							<td class="td_time" data-hour="12" data-min="30"></td>
+							<td class="td_time" data-hour="13" data-min="00"></td>
+							<td class="td_time" data-hour="13" data-min="30"></td>
+							<td class="td_time" data-hour="14" data-min="00"></td>
+							<td class="td_time" data-hour="14" data-min="30"></td>
+							<td class="td_time" data-hour="15" data-min="00"></td>
+							<td class="td_time" data-hour="15" data-min="30"></td>
+							<td class="td_time" data-hour="16" data-min="00"></td>
+							<td class="td_time" data-hour="16" data-min="30"></td>
+							<td class="td_time" data-hour="17" data-min="00"></td>
+							<td class="td_time" data-hour="17" data-min="30"></td>
+							<td class="td_time" data-hour="18" data-min="00"></td>
+							<td class="td_time" data-hour="18" data-min="30"></td>
+							<td class="td_time" data-hour="19" data-min="00"></td>
+							<td class="td_time" data-hour="19" data-min="30"></td>
+							<td class="td_time" data-hour="20" data-min="00"></td>
+							<td class="td_time" data-hour="20" data-min="30"></td>
+							<td class="td_time" data-hour="21" data-min="00"></td>
+							<td class="td_time" data-hour="21" data-min="30"></td>
+							<td class="td_time" data-hour="22" data-min="00"></td>
+							<td class="td_time" data-hour="22" data-min="30"></td>
+						</tr>
+					</tbody>
+				</table>
+				<ul>
+					<li><span class="time">09:00</span></li>
+					<li><span class="time">10:00</span></li>
+					<li><span class="time">11:00</span></li>
+					<li><span class="time">12:00</span></li>
+					<li><span class="time">13:00</span></li>
+					<li><span class="time">14:00</span></li>
+					<li><span class="time">15:00</span></li>
+					<li><span class="time">16:00</span></li>
+					<li><span class="time">17:00</span></li>
+					<li><span class="time">18:00</span></li>
+					<li><span class="time">19:00</span></li>
+					<li><span class="time">20:00</span></li>
+					<li><span class="time">21:00</span></li>
+					<li><span class="time">22:00</span></li>
+					<li><span class="time">23:00</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{%/if%}
+</div>
+</script>
+
+<script id="scheduleEvent" type="text/x-jquery-tmpl">
+<div class="time_box">
+	<span class="txt">BUSY</span>
+	<span class="name">{%= creator %}</span>
+</div>
+</script>

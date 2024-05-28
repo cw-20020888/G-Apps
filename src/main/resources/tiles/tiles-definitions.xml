@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="template/" template="/WEB-INF/template/layout.jsp" />
+	<definition name="template/2" template="/WEB-INF/template/layout2.jsp" />
+	<definition name="template/mobile" template="/WEB-INF/template/mobile/layout.jsp" />
+</tiles-definitions>

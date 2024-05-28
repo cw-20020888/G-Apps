@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/resources/tmpl/Popup.tmpl" %>
+<script id="mail" type="text/x-jquery-tmpl">
+	<div class="wrap">
+		<div class="contents_wrap">
+			<div class="contents">
+				<div class="mail {%if isAdmin%}admin{%/if%}">
+					<div class="btn_area">
+						<div class="btn_wrap">
+							<a href="javascript:void(0);" class="btn more">메일더보기</a>
+							<a href="javascript:void(0);" class="btn blue withdraw">선택한 메일회수</a>
+						</div>
+					</div>
+					<div class="mail_area">
+						{%if isAdmin%}
+						<div class="admin_area">
+							<div class="tit_area">
+								<p class="tit">관리자</p>
+							</div>
+							<div class="search_area">
+								<label for="iSch" onclick="$(this).next('input').focus();" class="lbl_search">이름검색</label>
+								<input type="text" id="iSch" onfocus="$(this).prev('label').hide();" onblur="if (!this.value) $(this).prev('label').show();" class="ipt_search">
+								<a href="javascript:void(0);" class="btn_search">검색</a>
+							</div>
+							<ul class="search_list"></ul>
+						</div>
+						{%/if%}
+						<div class="tbl_area">
+							<table cellpadding="0" cellspacing="0" border="0" class="tbl">
+								<colgroup>
+									<col style="width:44px;">
+									<col>
+									<col style="width:215px;">
+									<col style="width:131px;">
+								</colgroup>
+								<thead>
+									<tr>
+										<th>
+											<div class="chkbox">
+												<input type="checkbox" id="mailChkAll" name="메일전체선택/해제">
+												<label for="mailChkAll"><span>메일전체선택/해제</span></label>
+											</div>
+										</th>
+										<th><p class="tit">제목</p></th>
+										<th><p class="tit">수신자</p></th>
+										<th><p class="tit">발송일</p></th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script id="mailTbody" type="text/x-jquery-tmpl">
+{%if items.length > 0 %}
+	{%each(index, item) items %}
+	<tr {%if status == 0 || status == 1%}class="logExistst"{%/if%}>
+		<td>
+			<div class="chkbox">
+				<input type="checkbox" class="mail_chk" name="메일선택/해제" value="{%= item.msgId %}" {%if status == 0 || status == 1%}disabled="disabled"{%/if%}>
+				<label><span>메일선택/해제</span></label>
+			</div>
+		</td>
+		<td><p class="subject"><a href="javascript:void(0);" class="txt" id="{%= item.id %}" title="{%= item.subject %}">{%if JSV.isEmpty(item.subject) %}( 제목없음 ){%else%}{%= item.subject %}{%/if%}</a></p></td>
+		<td><p class="name"><a href="javascript:void(0);" class="txt" title="{%= toUserString(item.users) %}">{%= toUserString(item.users) %}</a></p></td>
+		<td><p class="date"><span class="txt" title="{%= item.date %}">{%= item.date %}</span></p></td>
+	</tr>
+	{%/each%}
+{%else%}
+	<tr>
+		<td colspan="4" style="text-align: center;">보낸 메일이 존재하지 않습니다</td>
+	</tr>
+{%/if%}
+</script>
+
+<script id="searchUser" type="text/x-jquery-tmpl">
+<li>
+	<a href="javascript:void(0);" class="result" data-mail="{%= primaryEmail %}" title="{%= name %}{%= info %}">
+		<span class="name">{%= name %}</span>
+		<span class="info">{%= info %}</span>
+	</a>
+</li>
+</script>
